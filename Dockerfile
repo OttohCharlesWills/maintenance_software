@@ -17,8 +17,6 @@ COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
 
-RUN php artisan key:generate || true
-
 EXPOSE 10000
 
-CMD php -S 0.0.0.0:10000 -t public
+CMD php artisan key:generate && php artisan migrate --force && php -S 0.0.0.0:10000 -t public
