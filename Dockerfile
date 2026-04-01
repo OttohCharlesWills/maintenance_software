@@ -17,6 +17,10 @@ COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
 
+# install node deps + build vite
+RUN npm install
+RUN npm run build
+
 EXPOSE 10000
 
 CMD php artisan config:clear && php -S 0.0.0.0:10000 -t public
