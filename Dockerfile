@@ -21,10 +21,6 @@ COPY . .
 # php deps
 RUN composer install --no-dev --optimize-autoloader
 
-# frontend build
-RUN npm install
-RUN npm run build
-
 # permissions
 RUN chmod -R 777 storage bootstrap/cache
 
