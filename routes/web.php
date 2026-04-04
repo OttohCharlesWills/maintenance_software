@@ -5,7 +5,7 @@ use App\Http\Controllers\Superadmin\SuperAdminController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Operator\OperatorController;
 use App\Http\Controllers\Viewer\ViewerController;
-use App\Http\Controllers\SuperAdmin\LocationController;
+use App\Http\Controllers\Superadmin\LocationController;
 use App\Http\Controllers\Superadmin\EquipmentController;
 use App\Http\Controllers\Superadmin\SuperAdminUserController;
 use App\Http\Controllers\Admin\UserController;
@@ -16,8 +16,9 @@ use App\Http\Controllers\Operator\OperatorReportController;
 use App\Http\Controllers\Admin\MaintenanceReportController;
 use App\Http\Controllers\Operator\ProductionController;
 use App\Http\Controllers\Admin\ProductionReportController;
-use App\Http\Controllers\SuperAdmin\ProfileController;
+use App\Http\Controllers\Superadmin\ProfileController;
 use App\Http\Controllers\Admin\AdminProfileController;
+use App\Http\Controllers\DashboardController;
 // use App\Http\Controllers\MachineStatusController;
 
 Route::get('/', function () {
@@ -28,6 +29,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 
 // ROUTES FOR SUPERADMIN
 Route::middleware(['auth','role:superadmin'])->group(function(){

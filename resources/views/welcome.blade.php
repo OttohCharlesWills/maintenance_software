@@ -25,8 +25,18 @@
 <a href="#about" class="text-gray-600 hover:text-black hidden sm:block">About</a> --}}
 
 <button onclick="login()" class="bg-blue-600 text-white px-6 py-2 rounded-lg">
-    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+    @if (Route::has('login'))
+    <div class="auth-links">
+        @auth
+            <a href="{{ route('dashboard') }}">Dashboard</a>
+        @else
+            <a href="{{ route('login') }}">Log in</a>
+        @endauth
+    </div>
+@endif
 </button>
+
+
 
 </div>
 
