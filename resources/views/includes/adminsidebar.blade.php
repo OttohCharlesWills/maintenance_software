@@ -44,5 +44,11 @@
                 </a>
             </li>
 
+            <li class="nav-item mb-2">
+                <a href="{{route('admin.profile.edit')}}" class="nav-link text-white">
+                    Profile
+                </a>
+            </li>
+
         </ul>
     </div>

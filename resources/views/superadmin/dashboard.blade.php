@@ -11,35 +11,35 @@
     }
 
     .card-blue { 
-        background: linear-gradient(135deg,#6fa8dc,#3d85c6); 
+        background: linear-gradient(135deg,#040250d0,#040250d0); 
     }
 
     .card-green { 
-        background: linear-gradient(135deg,#6fdcc3,#2ebf91); 
+        background: linear-gradient(135deg,#033025,#033025); 
     }
 
     .card-orange { 
-        background: linear-gradient(135deg,#f6b26b,#e69138); 
+        background: linear-gradient(135deg,#4d2a05,#4d2a05); 
     }
 
     .card-red { 
-        background: linear-gradient(135deg,#f28b82,#e06666); 
+        background: linear-gradient(135deg,#570e08,#570e08); 
     }
 
     .status-green { 
-        background: linear-gradient(135deg,#34d399,#059669); 
+        background: linear-gradient(135deg,#0a3634,#0a3634); 
     }
 
     .status-yellow { 
-        background: linear-gradient(135deg,#fbbf24,#f59e0b); 
+        background: linear-gradient(135deg,#553f09,#553f09); 
     }
 
     .status-danger { 
-        background: linear-gradient(135deg,#f87171,#dc2626); 
+        background: linear-gradient(135deg,#460909,#330b0b); 
     }
 
     .status-gray { 
-        background: linear-gradient(135deg,#9ca3af,#6b7280); 
+        background: linear-gradient(135deg,#3c3e41,#3c3e41); 
     }
 
     .dashboard-card h2 {
@@ -61,16 +61,8 @@
     }
 </style>
 
-        <nav class="navbar navbar-light bg-white shadow-sm px-4">
-            <span>
-                Welcome, {{ Auth::user()->name }} To Your Dashboard
-            </span>
-        </nav>
-
-        <br>
-
 <div class="container-fluid">
-
+<br>
 
     {{-- TOP STATS --}}
     <div class="row mb-4">
@@ -208,6 +200,7 @@
                             <th>Machine</th>
                             <th>Status</th>
                             <th>Runtime</th>
+                            <th>Location</th>
                         </tr>
                     </thead>
 
@@ -248,6 +241,8 @@
 
                                     {{ $h }}:{{ $m }}:{{ $s }}
                                 </td>
+
+                                <td>{{ $log->machine->location->name ?? '-' }}</td>
 
                             </tr>
 

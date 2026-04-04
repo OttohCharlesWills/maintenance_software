@@ -2,9 +2,12 @@
 
 @section('admincontent')
 
-<div class="container">
+<div class="card" style="margin-left: 20px; margin-top: 20px; width:70vw;">
 
-<h3>Production Reports</h3>
+<div class="card-header">
+    Production Reports
+</div>
+<div class="card-body">
 
 <table class="table table-bordered">
 
@@ -45,7 +48,8 @@
 
 </tbody>
 
-</table>
+</table>    
+</div>
 
 </div>
 

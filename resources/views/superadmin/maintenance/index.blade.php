@@ -3,56 +3,115 @@
 @section('supercontent')
 
 <div class="card">
-    <div class="card-header">Maintenance Reports</div>
 
-    <div class="card-body">
+<div class="card-header">
 
-        <table class="table table-bordered">
+Maintenance Reports
 
-            <thead>
-                <tr>
-                    <th>Machine</th>
-                    <th>Operator</th>
-                    <th>Fault</th>
-                    <th>Remedy</th>
-                    <th>Estimated Time</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
+</div>
 
-            <tbody>
+<div class="card-body">
 
-                @foreach($reports as $report)
+<form method="GET" class="mb-3">
 
-                    <tr>
+<div class="row">
 
-                        <td>{{ $report->machine->name }}</td>
+<div class="col-md-4">
 
-                        <td>{{ $report->operator->name }}</td>
+<label>Select Shop</label>
 
-                        <td>{{ $report->fault_reason }}</td>
+<select name="location_id" class="form-control">
 
-                        <td>{{ $report->remedy }}</td>
+<option value="">All Shops</option>
 
-                        <td>
-                            <span class="badge bg-warning">
-                                {{ $report->estimated_time }}
-                            </span>
-                        </td>
+@foreach($locations as $location)
 
-                        <td>
-                            {{ $report->created_at->format('d M Y H:i') }}
-                        </td>
+<option value="{{ $location->id }}"
+@if($location_id == $location->id) selected @endif>
 
-                    </tr>
+{{ $location->name }}
 
-                @endforeach
+</option>
 
-            </tbody>
+@endforeach
 
-        </table>
+</select>
 
-    </div>
+</div>
+
+
+<div class="col-md-4">
+
+<label>Select Date</label>
+
+<input type="date"
+       name="date"
+       value="{{ $date }}"
+       class="form-control">
+
+</div>
+
+
+<div class="col-md-4" style="margin-top:30px">
+
+<button class="btn btn-primary">
+Filter Report
+</button>
+
+</div>
+
+</div>
+
+</form>
+
+
+<table class="table table-bordered">
+
+<thead>
+<tr>
+<th>Machine</th>
+<th>Operator</th>
+<th>Fault</th>
+<th>Remedy</th>
+<th>Estimated Time</th>
+<th>Date</th>
+</tr>
+</thead>
+
+<tbody>
+
+@foreach($reports as $report)
+
+<tr>
+
+<td>{{ $report->machine->name }}</td>
+
+<td>{{ $report->operator->name }}</td>
+
+<td>{{ $report->fault_reason }}</td>
+
+<td>{{ $report->remedy }}</td>
+
+<td>
+<span class="badge bg-warning">
+{{ $report->estimated_time }}
+</span>
+</td>
+
+<td>
+{{ $report->created_at->format('d M Y H:i') }}
+</td>
+
+</tr>
+
+@endforeach
+
+</tbody>
+
+</table>
+
+</div>
+
 </div>
 
 @endsection

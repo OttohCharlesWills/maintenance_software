@@ -16,6 +16,8 @@ use App\Http\Controllers\Operator\OperatorReportController;
 use App\Http\Controllers\Admin\MaintenanceReportController;
 use App\Http\Controllers\Operator\ProductionController;
 use App\Http\Controllers\Admin\ProductionReportController;
+use App\Http\Controllers\SuperAdmin\ProfileController;
+use App\Http\Controllers\Admin\AdminProfileController;
 // use App\Http\Controllers\MachineStatusController;
 
 Route::get('/', function () {
@@ -50,7 +52,11 @@ Route::middleware(['auth','role:superadmin'])->group(function(){
 
     Route::get('/superadmin/create', [SuperAdminUserController::class, 'create'])->name('superadmin.users.create');
 
-    Route::post('/users/store', [SuperAdminUserController::class, 'store'])->name('superadmin.users.store');
+    Route::post('/superadmin/users/store', [SuperAdminUserController::class, 'store'])->name('superadmin.users.store');
+
+    Route::get('/superadmin/profile', [ProfileController::class,'edit'])->name('superadmin.profile.edit');
+
+    Route::post('/superadmin/profile',[ProfileController::class,'update'])->name('superadmin.profile.update');
 });
 
 
@@ -92,6 +98,10 @@ Route::middleware(['auth','role:admin'])->group(function(){
     Route::get('/admin/running-machines',[AdminController::class,'runningMachines']);
 
     Route::get('/meters',[AdminController::class,'meters'])->name('admin.meters');
+
+    Route::get('/admin/profile', [AdminProfileController::class,'edit'])->name('admin.profile.edit');
+
+    Route::post('/admin/profile',[AdminProfileController::class,'update'])->name('admin.profile.update');
 
 });
 

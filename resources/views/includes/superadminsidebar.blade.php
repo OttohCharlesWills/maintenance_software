@@ -51,6 +51,11 @@
                 </a>
             </li>
 
+            <li class="nav-item mb-2">
+                <a href="{{ route('superadmin.profile.edit') }}" class="nav-link text-white">
+                    Profile
+                </a>
+            </li>
 
         </ul>
     </div>

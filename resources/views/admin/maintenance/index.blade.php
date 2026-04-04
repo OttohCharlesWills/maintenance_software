@@ -2,7 +2,7 @@
 
 @section('admincontent')
 
-<div class="card">
+<div class="card" style="margin-left: 20px; margin-top: 20px; width:70vw;">
     <div class="card-header">Maintenance Reports</div>
 
     <div class="card-body">

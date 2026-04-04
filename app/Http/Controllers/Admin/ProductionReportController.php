@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\productionReport;
+use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Models\Location;
 
 class ProductionReportController extends Controller
 {
@@ -22,16 +25,47 @@ class ProductionReportController extends Controller
     }
 
 
-    public function superIndex()
+    // public function superIndex()
+    // {
+    //     $reports = ProductionReport::with([
+    //         'machine',
+    //         'operator'
+    //     ])->latest()->get();
+
+    //     return view(
+    //         'superadmin.production.index',
+    //         compact('reports')
+    //     );
+    // }
+
+    public function superIndex(Request $request)
     {
-        $reports = ProductionReport::with([
+        $date = $request->date ?? Carbon::today()->toDateString();
+
+        $location_id = $request->location_id;
+
+        $query = ProductionReport::with([
             'machine',
             'operator'
-        ])->latest()->get();
+        ]);
+
+        // filter by date
+        $query->whereDate('report_date', $date);
+
+        // filter by shop/location
+        if ($location_id) {
+            $query->whereHas('machine', function ($q) use ($location_id) {
+                $q->where('location_id', $location_id);
+            });
+        }
+
+        $reports = $query->latest()->get();
+
+        $locations = Location::all();
 
         return view(
             'superadmin.production.index',
-            compact('reports')
+            compact('reports','locations','date','location_id')
         );
     }
 
