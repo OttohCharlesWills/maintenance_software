@@ -17,10 +17,31 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
-    <div id="app">
+    <nav class="navbar navbar-light bg-white shadow-sm px-4">
+        <div>
+            <h5 style="margin: 0"><b>Admin Panel</b></h5>
+        </div>
+
+        <div style="display: flex; gap: 1rem; align-items:center;">
+            <span>
+                Welcome, {{ Auth::user()->name }}
+            </span>
+
+            <li class="nav-item" style="list-style-type: none">
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button class="btn btn-danger w-100">
+                        Logout
+                    </button>
+                </form>
+            </li>
+        </div>
+    </nav>
+
+    <div id="app" class="d-flex">
         @include('includes.viewersidebar')
 
-        <main class="py-4">
+        <main class="flex-grow-1">
             @yield('viewercontent')
         </main>
     </div>
