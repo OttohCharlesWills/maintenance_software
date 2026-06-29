@@ -33,6 +33,7 @@
                         <th>Email</th>
                         <th>Role</th>
                         <th>Location</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
 
@@ -57,6 +58,47 @@
                             <td>{{ $user->email }}</td>
                             <td>{{ ucfirst($user->role) }}</td>
                             <td>{{ $user->location->name ?? '-' }}</td>
+                            <td>
+
+                                {{-- <form action="{{ route('superadmin.users.updateRole',$user) }}"
+                                    method="POST"
+                                    class="mb-2">
+
+                                    @csrf
+                                    @method('PUT')
+
+                                    <select name="role"
+                                            class="form-select form-select-sm"
+                                            onchange="this.form.submit()">
+
+                                        <option value="admin"
+                                            {{ $user->role=='admin' ? 'selected' : '' }}>
+                                            Admin
+                                        </option>
+
+                                        <option value="operator"
+                                            {{ $user->role=='operator' ? 'selected' : '' }}>
+                                            Operator
+                                        </option>
+
+                                    </select>
+
+                                </form> --}}
+
+                                <form action="{{ route('superadmin.users.destroy',$user) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('Delete this user?')">
+
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button class="btn btn-danger btn-sm w-100">
+                                        Delete
+                                    </button>
+
+                                </form>
+
+                            </td>
                         </tr>
 
 
@@ -73,6 +115,48 @@
                             <td>{{ $child->email }}</td>
                             <td>{{ ucfirst($child->role) }}</td>
                             <td>{{ $child->location->name ?? '-' }}</td>
+                            <td>
+
+                                {{-- <form action="{{ route('superadmin.users.updateRole',$user) }}"
+                                    method="POST"
+                                    class="d-inline">
+
+                                    @csrf
+                                    @method('PUT')
+
+                                    <select name="role"
+                                            class="form-select form-select-sm"
+                                            onchange="this.form.submit()">
+
+                                        <option value="admin"
+                                            {{ $user->role=='admin'?'selected':'' }}>
+                                            Admin
+                                        </option>
+
+                                        <option value="operator"
+                                            {{ $user->role=='operator'?'selected':'' }}>
+                                            Operator
+                                        </option>
+
+                                    </select>
+
+                                </form> --}}
+
+                                <form action="{{ route('superadmin.users.destroy',$user) }}"
+                                    method="POST"
+                                    class="d-inline"
+                                    onsubmit="return confirm('Delete this user?')">
+
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button class="btn btn-sm btn-danger mt-2">
+                                        Delete
+                                    </button>
+
+                                </form>
+
+                            </td>
 
                         </tr>
 

@@ -54,4 +54,32 @@ class SuperAdminUserController extends Controller
             ->with('success','User created successfully');
     }
 
+    public function updateRole(Request $request, User $user)
+    {
+        $request->validate([
+            'role' => 'required|in:admin,operator'
+        ]);
+
+        $user->update([
+            'role' => $request->role
+        ]);
+
+        return back()->with('success', 'User role updated successfully.');
+    }
+
+    public function destroy(User $user)
+    {
+        // Prevent deleting yourself
+        if ($user->id == auth()->id()) {
+            return back()->with('error', 'You cannot delete your own account.');
+        }
+
+        // Delete children first if any
+        User::where('created_by', $user->id)->delete();
+
+        $user->delete();
+
+        return back()->with('success', 'User deleted successfully.');
+    }
+
 }

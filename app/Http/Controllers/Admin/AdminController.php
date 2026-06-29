@@ -71,15 +71,23 @@ public function dashboard()
         'recentLogs'
     ));
 }
+public function meters()
+{
+    // IDs of operators created by this admin
+    $operatorIds = User::where('created_by', auth()->id())
+        ->pluck('id')
+        ->toArray();
 
-    public function meters()
-    {
-        $meters = Meter::with('machine')
-                        ->latest()
-                        ->get();
+    // Include the admin's own ID in case the admin also starts machines
+    $operatorIds[] = auth()->id();
 
-        return view('admin.meters.index', compact('meters'));
-    }
+    $meters = Meter::with(['machine'])
+        ->whereIn('started_by', $operatorIds)
+        ->latest()
+        ->get();
+
+    return view('admin.meters.index', compact('meters'));
+}
 
     public function runningMachines()
 {
