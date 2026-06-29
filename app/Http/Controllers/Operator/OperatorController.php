@@ -6,13 +6,62 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Machine;
 use App\Models\Meter;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class OperatorController extends Controller
 {
-    public function dashboard()
-    {
-        return view('operator.dashboard'); // resources/views/admin/dashboard.blade.php
-    }
+ public function dashboard()
+{
+    $operator = Auth::user();
+
+    $locationId = $operator->location_id;
+
+    // Machine Counts
+    $machines = Machine::where('location_id', $locationId)->count();
+
+    $running = Machine::where('location_id', $locationId)
+        ->where('status', 'running')
+        ->count();
+
+    $standby = Machine::where('location_id', $locationId)
+        ->where('status', 'standby')
+        ->count();
+
+    $shutdown = Machine::where('location_id', $locationId)
+        ->where('status', 'shutdown')
+        ->count();
+
+    $faulty = Machine::where('location_id', $locationId)
+        ->where('status', 'faulty')
+        ->count();
+
+    // Sessions started by this operator
+    $myReadings = Meter::where('started_by', $operator->id)->count();
+
+    // Sessions started today
+    $todayReadings = Meter::where('started_by', $operator->id)
+        ->whereDate('created_at', today())
+        ->count();
+
+    // Recent sessions
+    $recentLogs = Meter::where('started_by', $operator->id)
+        ->with('machine')
+        ->latest()
+        ->take(5)
+        ->get();
+
+    return view('operator.dashboard', compact(
+        'machines',
+        'running',
+        'standby',
+        'shutdown',
+        'faulty',
+        'myReadings',
+        'todayReadings',
+        'recentLogs'
+    ));
+}
 
     public function machines()
     {

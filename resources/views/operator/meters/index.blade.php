@@ -49,15 +49,16 @@
                             </td>
 
 
-                            <td>
-
-                                <span class="meter-timer"
-                                    data-start="{{ $meter->start_time->timestamp }}"
-                                    data-end="{{ $meter->end_time ? $meter->end_time->timestamp : '' }}"
-                                    data-status="{{ $meter->machine->status }}">
-                                    00:00:00
-                                </span>
-
+                            <td>    
+                                @php
+                                    $start = \Carbon\Carbon::parse($meter->updated_at);
+                                    $end = \Carbon\Carbon::parse($meter->created_at);
+                                    $diff = $end->diffInSeconds($start);
+                                    $h = str_pad(floor($diff / 3600), 2, '0', STR_PAD_LEFT);
+                                    $m = str_pad(floor(($diff % 3600) / 60), 2, '0', STR_PAD_LEFT);
+                                    $s = str_pad($diff % 60, 2, '0', STR_PAD_LEFT);
+                                @endphp
+                                {{ $h }}:{{ $m }}:{{ $s }}
                             </td>
 
                             <td>

@@ -41,7 +41,7 @@
     <div id="app" class="d-flex">
         @include('includes.adminsidebar')
 
-        <main class="" class="flex-grow-1">
+        <main class="flex-grow-1">
             @yield('admincontent')
         </main>
 

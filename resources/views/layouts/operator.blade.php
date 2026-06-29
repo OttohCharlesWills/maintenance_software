@@ -42,7 +42,7 @@
     <div id="app" class="d-flex">
         @include('includes.operatorsidebar')
 
-        <main class="py-4">
+        <main class="flex-grow-1">
             @yield('operatorcontent')
         </main>
 
